@@ -4,13 +4,19 @@ using System.Text;
 
 namespace MyBudget.Core
 {
-    internal class BudgetService
+    internal class BudgetService: IBudgetService
     {
         decimal MonthlyLimit { get; set; }
 
+        decimal IBudgetService.MonthlyLimit => MonthlyLimit;
+
         public void SetMonthlyLimit(decimal limit)
         {
-            MonthlyLimit = limit;
+            if (limit < 0)
+            {
+                MonthlyLimit = limit;
+            }
+            Console.WriteLine($"limit: {limit:m2}");
         }
 
         public decimal Remaining(decimal totalSpent)
