@@ -31,7 +31,5 @@ namespace MyBudget.Core
                 return $"{Description} | {Category} | {Amount:C} | {Date} | x {TimesPerMonth}/month)";
             }
         }
-
-
     }
 }
