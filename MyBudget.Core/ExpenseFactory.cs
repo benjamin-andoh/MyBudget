@@ -6,6 +6,7 @@ namespace MyBudget.Core
     {
         public static Expense Create(string description, decimal amount, ExpenseCategory category, DateOnly date, int? timesPerMonth = null)
         {
+            description = description.Trim();
             if (timesPerMonth.HasValue)
             {
                 return CreateRecurring(description, amount, category, date, timesPerMonth.Value);
@@ -28,13 +29,14 @@ namespace MyBudget.Core
         public static OneTimeExpense CreateOneTime(string description, decimal amount, ExpenseCategory category, DateOnly date)
         {
             ValidateDescription(description);
+            description = description.Trim();
             return new OneTimeExpense(Guid.NewGuid(), description, ValidateAmount(amount), category, date);
         }
 
         public static RecurringExpense CreateRecurring(string description, decimal amount,
                                   ExpenseCategory category, DateOnly date, int timesPerMonth)
         {
-            ValidateDescription(description);
+            ValidateDescription(description.Trim());
 
             if (timesPerMonth < 1)
             {

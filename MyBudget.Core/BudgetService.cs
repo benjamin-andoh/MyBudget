@@ -12,11 +12,12 @@ namespace MyBudget.Core
 
         public void SetMonthlyLimit(decimal limit)
         {
-            if (limit < 0)
+            if (limit <= 0)
             {
-                MonthlyLimit = limit;
+                throw new InvalidExpenseException("Monthly limit must be greater than 0.");
             }
-            Console.WriteLine($"limit: {limit:m2}");
+
+            MonthlyLimit = limit;
         }
 
         public decimal Remaining(decimal totalSpent)
@@ -31,12 +32,12 @@ namespace MyBudget.Core
                 return BudgetStatus.NotSet;
             }
             decimal remaining = Remaining(totalSpent);
-            decimal threshold = MonthlyLimit * 0.1m; // 10% of the monthly limit
+            decimal threshold = MonthlyLimit * 0.1m;
             if (remaining < 0)
             {
                 return BudgetStatus.OverBudget;
             }
-            else if (remaining <= threshold)
+            else if (remaining < threshold)
             {
                 return BudgetStatus.AlmostOut;
             }

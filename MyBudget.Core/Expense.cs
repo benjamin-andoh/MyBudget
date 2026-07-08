@@ -29,7 +29,7 @@ namespace MyBudget.Core
 
         public override string ToReportLine()
         {
-            return $"{Description} | {Category} | {Amount:C} | {Date} | x {TimesPerMonth}/month)";
+            return $"{Description} | {Category} | {Amount:C} | {Date} | x{TimesPerMonth}/month)";
         }
     }
 }
