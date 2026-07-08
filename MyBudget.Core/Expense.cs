@@ -14,22 +14,22 @@ namespace MyBudget.Core
             return $"{Description} | {Category} | {Amount:C} | {Date}";
 
         }
+    }
 
-        public record OneTimeExpense(Guid Id, string Description, decimal Amount, ExpenseCategory Category, DateOnly Date)
-            : Expense(Id, Description, Amount, Category, Date)
+    public record OneTimeExpense(Guid Id, string Description, decimal Amount, ExpenseCategory Category, DateOnly Date)
+    : Expense(Id, Description, Amount, Category, Date)
+    {
+        public override decimal MonthlyImpact => Amount;
+    }
+
+    public record RecurringExpense(Guid Id, string Description, decimal Amount, ExpenseCategory Category, DateOnly Date, int TimesPerMonth)
+    : Expense(Id, Description, Amount, Category, Date)
+    {
+        public override decimal MonthlyImpact => Amount * TimesPerMonth;
+
+        public override string ToReportLine()
         {
-            public override decimal MonthlyImpact => Amount;
-        }
-
-        public record RecurringExpense(Guid Id, string Description, decimal Amount, ExpenseCategory Category, DateOnly Date, int TimesPerMonth)
-            : Expense(Id, Description, Amount, Category, Date)
-        {
-            public override decimal MonthlyImpact => Amount * TimesPerMonth;
-
-            public override string ToReportLine()
-            {
-                return $"{Description} | {Category} | {Amount:C} | {Date} | x {TimesPerMonth}/month)";
-            }
+            return $"{Description} | {Category} | {Amount:C} | {Date} | x {TimesPerMonth}/month)";
         }
     }
 }

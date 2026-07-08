@@ -1,6 +1,7 @@
 using MyBudget.Core;
 using MyBudget.Tests.Fakes;
 using Xunit;
+using static MyBudget.Core.Expense;
 
 namespace MyBudget.Tests;
 

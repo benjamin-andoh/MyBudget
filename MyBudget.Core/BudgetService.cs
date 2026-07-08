@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MyBudget.Core
 {
-    internal class BudgetService: IBudgetService
+    public class BudgetService: IBudgetService
     {
         decimal MonthlyLimit { get; set; }
 
